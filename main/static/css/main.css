@@ -2,3 +2,94 @@
 	margin: 0;
 	padding: 0;
 }
+
+body {
+	width: 1000px;
+	margin: 0 auto;
+}
+
+header {
+	width: 1000px;
+	height: 60px;
+
+	margin-top: 10px;
+
+	background-color: green;
+}
+
+.content {
+	width: 1000px;
+	height: 400px;
+	
+	margin: 50px auto;
+
+	background-color: blue;
+}
+
+footer {
+	width: 1000px;	
+	height: 50px;
+	
+	position: absolute;
+	bottom: 0;
+	
+	background-color: black;
+}
+
+.history {
+	width: 200px;
+	height: 400px;
+	
+	float: right;
+	
+	background-color: orange;
+}
+
+.forms {
+	width: 800px;
+	height: 340px;
+	float: left;
+}
+
+.inputs {
+	width: 800px;
+	height: 200px;
+	
+	float: left;
+	display: flex;
+	justify-content: center;
+	background-color: cyan;
+}
+
+.switch {
+	display: flex;
+	justify-content: center;
+	color: white;
+}
+
+.roman {
+	
+}
+
+.arabic {
+
+}
+
+.change {
+	height: 50px;
+
+}
+
+.send {
+	height: 50px;
+
+	margin: 0 auto;
+	width: 80%;
+	display: flex;
+	justify-content: center;
+}
+
+.text-box{
+	border-radius: 5px;
+	
+}

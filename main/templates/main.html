@@ -1,5 +1,5 @@
 {% extends "wrapper.html" %}
-{% load staticfiles %}
+{% load static %}
 
 {% block style %}
 	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
@@ -13,6 +13,44 @@
 
 {% block content %}
 
-	<p>Welcome to the party!</p>
+	<header>
+		<p>Welcome to the roman-arabic translator!</p>
+	</header>
+
+	<div class="content">
+		<div class="forms">
+			<from class="switch" method="POST">
+					<input type="radio" name="default">arabic
+					<input type="radio" name="default">roman
+			</from>
+
+			<div class="inputs">
+				
+				<form class="roman" method="POST">
+					<input class="text-box"></input>
+				</form>
+
+				<button class="change"><–\***/–></button>
+
+				<form class="arabic" method="POST">
+					<input class="text-box"></input>
+				</form>
+				
+			</div>
+			<div class="button-send">
+				<button class="send" type="submit" form="roman">SUBMIT</button>
+			</div>
+		</div>
+
+		<div class="history">
+			<h5>This is history</h5>	
+			<h5>This is history</h5>	
+			<h5>This is history</h5>	
+			<h5>This is history</h5>	
+			<h5>This is history</h5>	
+		</div>
+	</div>
+
+	<footer></footer>
 
 {% endblock %}
