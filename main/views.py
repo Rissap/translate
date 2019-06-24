@@ -4,8 +4,10 @@ from django.views.generic import TemplateView
 class MainPage(TemplateView):
 	template_name = "main.html"
 
-	def get(request):
-		pass
+	args = {}
 
-	def post(request):
+	def get(self, request):
+		return render(request, self.template_name, {"args":self.args})
+
+	def post(self, request):
 		pass

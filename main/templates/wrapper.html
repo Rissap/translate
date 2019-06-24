@@ -1,0 +1,29 @@
+{% load static  %}
+
+<!DOCTYPE html>
+<html>
+	<head>
+
+		<meta charset="utf-8">
+	 	<meta name="viewport">
+	 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+	 	{% block style %}
+	 	<!-- Here will be linked some css files -->
+	 	{% endblock %}
+	 	
+	 	{% block head %}
+		<title>Main Page Most Likely</title>
+		{% endblock %}
+
+	</head>
+
+
+	<body class="body">
+
+	{% block content %}
+	<!-- Main content -->
+	{% endblock %}
+
+</body>
+</html>
