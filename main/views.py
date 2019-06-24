@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 from django.views.generic import TemplateView
 
 class MainPage(TemplateView):
@@ -10,4 +11,5 @@ class MainPage(TemplateView):
 		return render(request, self.template_name, {"args":self.args})
 
 	def post(self, request):
-		pass
+		a = request.POST.get("num")
+		return HttpResponse("<h1>Good Work with</h1>"+ a)

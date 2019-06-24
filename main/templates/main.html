@@ -10,35 +10,36 @@
 	<title>Main page</title>
 {% endblock %}
 
-
-{% block content %}
-
-	<header>
+<!-- 
+<header>
 		<p>Welcome to the roman-arabic translator!</p>
 	</header>
 
 	<div class="content">
 		<div class="forms">
-			<from class="switch" method="POST">
-					<input type="radio" name="default">arabic
-					<input type="radio" name="default">roman
+			<from id="switch" method="post">
+				{% csrf_token %}	
+				<input type="radio" name="num" value="arabic">arabic
+				<input type="radio" name="num" value="roman">roman
 			</from>
 
 			<div class="inputs">
 				
-				<form class="roman" method="POST">
-					<input class="text-box"></input>
+				<form id="rom" class="roman" method="POST">
+					{% csrf_token %}
+					<input class="text-box" name="numStr"></input>
 				</form>
 
 				<button class="change"><–\***/–></button>
 
-				<form class="arabic" method="POST">
+				<form class="arabic" method="POST" enctype="UTF-8">
+					{% csrf_token %}
 					<input class="text-box"></input>
 				</form>
 				
 			</div>
 			<div class="button-send">
-				<button class="send" type="submit" form="roman">SUBMIT</button>
+				<button class="send" onclick="sendForm()">SUBMIT</button>
 			</div>
 		</div>
 
@@ -52,5 +53,48 @@
 	</div>
 
 	<footer></footer>
+
+-->
+
+
+{% block content %}
+
+	<header>
+		<p>Welcome to the roman-arabic translator!</p>
+	</header>
+
+	<div class="content">
+		<form method="post" class="forms">
+			{% csrf_token %}
+			
+			<div class="switch">
+				<input type="radio" name="num" value="roman">roman
+				<input type="radio" name="num" value="arabic">arabic
+			</div>
+
+			<div class="inputs">
+				<input type="text" name="numStr" class="numberStr" maxlength="100">
+			</div>
+
+			<button type="submit" class="send">cas</button>
+		
+		</form>
+
+		<div class="result">
+			<h1>Result</h1>
+			<h1></h1>
+		</div>
+
+		<div class="history">
+			<h5>This is history</h5>	
+			<h5>This is history</h5>	
+			<h5>This is history</h5>	
+			<h5>This is history</h5>	
+			<h5>This is history</h5>	
+		</div>
+	</div>
+
+	<footer></footer>
+
 
 {% endblock %}

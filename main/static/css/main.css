@@ -36,6 +36,13 @@ footer {
 	background-color: black;
 }
 
+.numberStr {
+	height: 50px;
+	width: 500px;
+	font-size: 20pt;
+	padding: 5px 10px;
+}
+
 .history {
 	width: 200px;
 	height: 400px;
@@ -46,8 +53,8 @@ footer {
 }
 
 .forms {
-	width: 800px;
-	height: 340px;
+	width: 600px;
+	height: 400px;
 	float: left;
 }
 
@@ -56,9 +63,16 @@ footer {
 	height: 200px;
 	
 	float: left;
+	
+	background-color: cyan;
+}
+
+.result {
+	width: 200px;
+	height: 400px;
 	display: flex;
 	justify-content: center;
-	background-color: cyan;
+	float: left;
 }
 
 .switch {
