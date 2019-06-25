@@ -13,3 +13,16 @@ class Numbers(models.Model):
 
 	def __str__(self):
 		return "{0} {1}".format(self.roman, self.arabic)
+
+class History(models.Model):
+	"""
+	save history of conversion
+	revrite oldest one
+	"""
+	from_num = models.CharField(max_length=128)
+	to_num = models.CharField(max_length=128)
+	time = models.TimeField()
+
+	class Meta:
+		ordering = ["-time"]
+		get_latest_by = ["-time"]

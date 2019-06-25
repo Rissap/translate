@@ -2,17 +2,32 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic import TemplateView
 
+import datetime as dt
+
 from . import models
 
 class MainPage(TemplateView):
 	template_name = "main.html"
 
-	args = {"result":"nothing"}
-
 	def get(self, request):
-		return render(request, self.template_name, {"result": "none"})
+		history = models.History.objects.all()
+		args = {"history":history}
+		
+		return render(request, self.template_name, context=args)
 
 	def post(self, request):
+
+		def save_history(raw, num):
+			
+			if models.History.objects.all().count() > 6:
+				tmp = models.History.objects.latest()
+			else:
+				tmp = models.History()
+
+			tmp.from_num = raw
+			tmp.to_num = num
+			tmp.time = dt.datetime.now()
+			tmp.save()
 
 		def check_num(num):
 			all_models = models.Numbers.objects.all()
@@ -29,8 +44,6 @@ class MainPage(TemplateView):
 
 			else:
 				return None
-
-
 
 		def to_roman(num):
 
@@ -72,20 +85,22 @@ class MainPage(TemplateView):
 
 			return sum(calc)
 
-		
-
 		rawNumber = request.POST.get("numStr")
 		numType = check_num(rawNumber)
 
-		if numType == None:
+		if numType == None or rawNumber=="":
 			res = "Incorect input! Try again)"
 		elif numType == "R":
 			res = to_arabic(rawNumber)
+			save_history(rawNumber, res)
 		elif numType == "A":
 			res = to_roman(rawNumber)
+			save_history(rawNumber, res)
 		else:
 			res = "Unexpected error! Try again)"
 
-		args = {"result":res}
+		history = models.History.objects.all()
+
+		args = {"result":res, "history":history}
 
 		return render(request, self.template_name, context=args)

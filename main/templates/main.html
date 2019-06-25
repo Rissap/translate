@@ -3,6 +3,7 @@
 
 {% block style %}
 	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+	<link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
 {% endblock %}
 
 
@@ -11,48 +12,48 @@
 {% endblock %}
 
 <!-- 
-<header>
-		<p>Welcome to the roman-arabic translator!</p>
-	</header>
+	<header>
+			<p>Welcome to the roman-arabic translator!</p>
+		</header>
 
-	<div class="content">
-		<div class="forms">
-			<from id="switch" method="post">
-				{% csrf_token %}	
-				<input type="radio" name="num" value="arabic">arabic
-				<input type="radio" name="num" value="roman">roman
-			</from>
+		<div class="content">
+			<div class="forms">
+				<from id="switch" method="post">
+					{% csrf_token %}	
+					<input type="radio" name="num" value="arabic">arabic
+					<input type="radio" name="num" value="roman">roman
+				</from>
 
-			<div class="inputs">
-				
-				<form id="rom" class="roman" method="POST">
-					{% csrf_token %}
-					<input class="text-box" name="numStr"></input>
-				</form>
+				<div class="inputs">
+					
+					<form id="rom" class="roman" method="POST">
+						{% csrf_token %}
+						<input class="text-box" name="numStr"></input>
+					</form>
 
-				<button class="change"><–\***/–></button>
+					<button class="change"><–\***/–></button>
 
-				<form class="arabic" method="POST" enctype="UTF-8">
-					{% csrf_token %}
-					<input class="text-box"></input>
-				</form>
-				
+					<form class="arabic" method="POST" enctype="UTF-8">
+						{% csrf_token %}
+						<input class="text-box"></input>
+					</form>
+					
+				</div>
+				<div class="button-send">
+					<button class="send" onclick="sendForm()">SUBMIT</button>
+				</div>
 			</div>
-			<div class="button-send">
-				<button class="send" onclick="sendForm()">SUBMIT</button>
+
+			<div class="history">
+				<h5>This is history</h5>	
+				<h5>This is history</h5>	
+				<h5>This is history</h5>	
+				<h5>This is history</h5>	
+				<h5>This is history</h5>	
 			</div>
 		</div>
 
-		<div class="history">
-			<h5>This is history</h5>	
-			<h5>This is history</h5>	
-			<h5>This is history</h5>	
-			<h5>This is history</h5>	
-			<h5>This is history</h5>	
-		</div>
-	</div>
-
-	<footer></footer>
+		<footer></footer>
 
 -->
 
@@ -60,23 +61,18 @@
 {% block content %}
 
 	<header>
-		<p>Welcome to the roman-arabic translator!</p>
+		<p class="head">Welcome to the roman-arabic converter!</p>
 	</header>
 
 	<div class="content">
 		<form method="post" class="forms">
 			{% csrf_token %}
-			
-			<div class="switch">
-				<input type="radio" name="num" value="roman">roman
-				<input type="radio" name="num" value="arabic">arabic
-			</div>
 
 			<div class="inputs">
-				<input type="text" name="numStr" class="numberStr" maxlength="100" placeholder="Enter your number here">
+				<input type="text" name="numStr" class="numberStr" maxlength="100" placeholder="Enter roman/arabic number here">
 			</div>
 
-			<button type="submit" class="send">cas</button>
+			<button type="submit" class="send">TOUCH ME!</button>
 		
 		</form>
 
@@ -86,11 +82,16 @@
 		</div>
 
 		<div class="history">
-			<h5>This is history</h5>	
-			<h5>This is history</h5>	
-			<h5>This is history</h5>	
-			<h5>This is history</h5>	
-			<h5>This is history</h5>	
+			<table>
+			{% for el in history %}
+			<tr>
+				<td>{{el.from_num}}</td><td>===</td><td>{{el.to_num}}</td>
+			</tr>
+			<tr>
+				<td>{{el.time}}</td>
+			</tr>
+			{% endfor %}
+			</table>
 		</div>
 	</div>
 
