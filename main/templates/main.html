@@ -11,53 +11,6 @@
 	<title>Main page</title>
 {% endblock %}
 
-<!-- 
-	<header>
-			<p>Welcome to the roman-arabic translator!</p>
-		</header>
-
-		<div class="content">
-			<div class="forms">
-				<from id="switch" method="post">
-					{% csrf_token %}	
-					<input type="radio" name="num" value="arabic">arabic
-					<input type="radio" name="num" value="roman">roman
-				</from>
-
-				<div class="inputs">
-					
-					<form id="rom" class="roman" method="POST">
-						{% csrf_token %}
-						<input class="text-box" name="numStr"></input>
-					</form>
-
-					<button class="change"><–\***/–></button>
-
-					<form class="arabic" method="POST" enctype="UTF-8">
-						{% csrf_token %}
-						<input class="text-box"></input>
-					</form>
-					
-				</div>
-				<div class="button-send">
-					<button class="send" onclick="sendForm()">SUBMIT</button>
-				</div>
-			</div>
-
-			<div class="history">
-				<h5>This is history</h5>	
-				<h5>This is history</h5>	
-				<h5>This is history</h5>	
-				<h5>This is history</h5>	
-				<h5>This is history</h5>	
-			</div>
-		</div>
-
-		<footer></footer>
-
--->
-
-
 {% block content %}
 
 	<header>
@@ -65,37 +18,37 @@
 	</header>
 
 	<div class="content">
-		<form method="post" class="forms">
-			{% csrf_token %}
+		
+		<div class="forms">
+			<div class="thisForm">
+				<form method="post" class="forms">
+					{% csrf_token %}
+					<input type="text" name="numStr" class="numberStr" maxlength="100" placeholder="Enter roman/arabic number here">
 
-			<div class="inputs">
-				<input type="text" name="numStr" class="numberStr" maxlength="100" placeholder="Enter roman/arabic number here">
+					<button type="submit" class="send">CONVERT</button>				
 			</div>
 
-			<button type="submit" class="send">TOUCH ME!</button>
+			<div class="result">
+				<h3>result</h3>
+				<h1>{{result}}</h1>
+			</div>
+		</div>
 		
-		</form>
-
-		<div class="result">
-			<h1>Result</h1>
-			<h1>{{result}}</h1>
-		</div>
-
 		<div class="history">
-			<table>
+			<p class="latest">latest</p>
 			{% for el in history %}
-			<tr>
-				<td>{{el.from_num}}</td><td>===</td><td>{{el.to_num}}</td>
-			</tr>
-			<tr>
-				<td>{{el.time}}</td>
-			</tr>
+			<div class="histDiv">
+				<p class="timeStr">{{el.time}}</p>
+				<p class="histStr">{{el.from_num}}</p>
+				<p class="toNumStr">{{el.to_num}}</p>
+				
+			</div>
 			{% endfor %}
-			</table>
 		</div>
-	</div>
 
-	<footer></footer>
+	<footer>
+		<p>©Some copyright (why not)</p>
+	</footer>
 
 
 {% endblock %}
