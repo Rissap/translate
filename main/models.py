@@ -8,5 +8,8 @@ class Numbers(models.Model):
 	roman = models.CharField(max_length=5)
 	arabic = models.IntegerField()
 
+	class Meta:
+		ordering = ["-arabic"]
+
 	def __str__(self):
 		return "{0} {1}".format(self.roman, self.arabic)
