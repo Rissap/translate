@@ -18,7 +18,10 @@ class MainPage(TemplateView):
 	def post(self, request):
 
 		def save_history(raw, num):
-			
+			"""
+			save latest 6 conversion
+			revrite the oldest one
+			"""
 			if models.History.objects.all().count() > 6:
 				tmp = models.History.objects.latest()
 			else:
@@ -30,6 +33,10 @@ class MainPage(TemplateView):
 			tmp.save()
 
 		def check_num(num):
+			"""
+			check, is num an arabic or a roman 
+			return None, if no one
+			"""
 			all_models = models.Numbers.objects.all()
 			roman = [x.roman for x in all_models]
 			arabic = [str(x) for x in range(10)]
@@ -46,13 +53,21 @@ class MainPage(TemplateView):
 				return None
 
 		def to_roman(num):
-
+			"""
+			convert number from arabic to roman
+			return string of roman numbres
+			"""
 			num = int(num)
 			all_models = models.Numbers.objects.all()
 			nums = {str(x.arabic) : x.roman for x in all_models}
 			keys = list(nums.keys())
 
 			numStr = ""
+
+			if num//1000 > 3:
+				numStr += "M*"+str(num//1000)+"+"
+				num -= (num//1000)*1000
+
 			for x in range(len(keys)):
 				amount = num // int(keys[x])
 
@@ -68,7 +83,10 @@ class MainPage(TemplateView):
 			return numStr
 
 		def to_arabic(num):
-
+			"""
+			convert number from roman to arabic
+			return integer 
+			"""
 			all_models = models.Numbers.objects.all()
 			nums = {str(x.roman) : x.arabic for x in all_models}
 			
@@ -85,11 +103,16 @@ class MainPage(TemplateView):
 
 			return sum(calc)
 
+		#get raw string from form and check it out
 		rawNumber = request.POST.get("numStr")
+		rawNumber = rawNumber.upper()
 		numType = check_num(rawNumber)
 
+		#use one of converter foo or return an error message
 		if numType == None or rawNumber=="":
-			res = "Incorect input! Try again)"
+			res = "Incorrect input! Try again)"
+		elif rawNumber=="0":
+			res = 0
 		elif numType == "R":
 			res = to_arabic(rawNumber)
 			save_history(rawNumber, res)
@@ -99,8 +122,10 @@ class MainPage(TemplateView):
 		else:
 			res = "Unexpected error! Try again)"
 
+		#get the history of conversions
 		history = models.History.objects.all()
 
+		#create diction of arguments - result of conv. and list of history
 		args = {"result":res, "history":history}
 
 		return render(request, self.template_name, context=args)
