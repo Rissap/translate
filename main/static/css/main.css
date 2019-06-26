@@ -106,12 +106,6 @@ h3 {
 
 }
 
-.switch {
-	display: flex;
-	justify-content: center;
-	color: white;
-}
-
 .send {
 	height: 50px;
 

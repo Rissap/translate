@@ -1,10 +1,10 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 from django.views.generic import TemplateView
 
 import datetime as dt
 
 from . import models
+
 
 class MainPage(TemplateView):
 	template_name = "main.html"
@@ -94,16 +94,18 @@ class MainPage(TemplateView):
 			calc = []
 			res = 0
 
+			#convert roman to arabic
 			for x in num:
 				calc.append(int(nums[x]))
 
+			#calculate with the rules of roman number position
 			for x in range(len(calc)-1):
 				if calc[x] < calc[x+1]:
 					calc[x] = calc[x]*(-1)
 
 			return sum(calc)
 
-		#get raw string from form and check it out
+		#get raw string from html form and check it out
 		rawNumber = request.POST.get("numStr")
 		rawNumber = rawNumber.upper()
 		numType = check_num(rawNumber)
