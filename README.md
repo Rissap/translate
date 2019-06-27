@@ -28,4 +28,7 @@ If you don't have python or django/psycopg2:
 5) in console:
      $> python manage.py runserver
      
+Then, in browser url line:
+     127.0.0.1:8000
+     
 You should not enter in console "$>".
