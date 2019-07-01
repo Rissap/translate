@@ -58,9 +58,11 @@ class MainPage(TemplateView):
 			return string of roman numbres
 			"""
 			num = int(num)
+
 			all_models = models.Numbers.objects.all()
-			nums = {str(x.arabic) : x.roman for x in all_models}
+			nums = {x.arabic : x.roman for x in all_models}
 			keys = list(nums.keys())
+			keys.sort(reverse=True) #can be important!
 
 			numStr = ""
 
