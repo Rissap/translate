@@ -1,4 +1,4 @@
-# translate
+# Convert numbers from roman to arabic and vice versa
 Translate roman numbers to arabic and arabic numbers to roman
 
 To download use the download button or git console:
