@@ -1,34 +1,12 @@
 # Convert numbers from roman to arabic and vice versa
-Translate roman numbers to arabic and arabic numbers to roman
 
-To download use the download button or git console:
+## Runing the application
 
-$> git clone https://github.com/Rissap/translate
+#### Using docker  
+`docker-compose run backend`  
 
-Requirements:
+#### Using poetry 
+`poetry install`  
+`poetry run python manage.py runserver`
 
-Python 3.X
-Django 2.X
-Psycopg2
-
-If you have Python and Django:
-
-1) go to folder "translate"
-2) open console here
-3) in console:
-     $> python manage.py runserver
-
-If you don't have python or django/psycopg2:
-
-1) go to folder "translate/vserver/scripts"
-2) open console here
-3) in console:
-     $> activate
-4) go back to "translate" (in this console, use "$> cd .. " )
-5) in console:
-     $> python manage.py runserver
-     
-Then, in browser url line:
-     127.0.0.1:8000
-     
-You should not enter in console "$>".
+Default url: ` 127.0.0.1:8000 `  
