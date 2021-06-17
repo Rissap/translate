@@ -24,7 +24,7 @@ class MainPage(TemplateView):
         return render(request, self.template_name, {"history": history})
 
     def post(self, request):
-        raw_number = request.POST.get("numStr")
+        raw_number = request.POST.get("number")
         raw_number = raw_number.upper()
         num_type = check_num(raw_number)
 

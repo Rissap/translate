@@ -14,41 +14,43 @@
 {% block content %}
 
 	<header>
-		<p class="head">Welcome to the roman-arabic converter!</p>
+		<nav class="navbar navbar-light bg-light">
+			<div class="container">
+				<span class="navbar-brand mb-0 h1">Number conventer</span>
+			</div>
+		</nav>
 	</header>
 
-	<div class="content">
-		
-		<div class="forms">
-			<div class="thisForm">
-				<form method="post" class="forms">
-					{% csrf_token %}
-					<input type="text" name="numStr" class="numberStr" maxlength="100" placeholder="Enter roman/arabic number here">
-
-					<button type="submit" class="send">CONVERT</button>				
-			</div>
-
-			<div class="result">
-				<h3>result</h3>
-				<h1>{{result}}</h1>
-			</div>
+	<div class="container">
+		<div class="mb-3 mt-5">
+            <form method="post" class="forms">
+				{% csrf_token %}
+			    <input type="text" class="form-control form-control-lg mt-2" name='number' placeholder="Enter roman or arabic number">
+                <div class="container text-center">
+                    <button type="submit" class="btn btn-primary mt-2">Convert</button>
+                </div>
 		</div>
+        {% if result %}
+		<div>
+            <h3 class="text-center my-5">Result: {{result}}</h3>
+		</div>
+        {% endif %}
 		
+        <hr />
+
 		<div class="history">
-			<p class="latest">latest</p>
-			{% for el in history %}
-			<div class="histDiv">
-				<p class="timeStr">{{el.time}}</p>
-				<p class="histStr">{{el.from_num}}</p>
-				<p class="toNumStr">{{el.to_num}}</p>
-				
-			</div>
-			{% endfor %}
+			<h3 class="latest">Recently converted</h3>
+            <div class="row justify-content-md-center">
+                {% for el in history %}
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 p-3">
+                    <div class="border-bottom">
+                        <p >
+                            <strong>{{el.from_num}}</strong> to <strong>{{el.to_num}}</strong>
+                        </p>
+                        <small class="text-right">{{el.time}}</small>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
 		</div>
-
-	<footer>
-		<p>©Some copyright (why not)</p>
-	</footer>
-
-
 {% endblock %}
