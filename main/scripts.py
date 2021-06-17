@@ -1,6 +1,7 @@
 from . import models
 
 import datetime as dt
+from .enums import NumberType
 
 
 def save_history(raw, num):
@@ -31,13 +32,12 @@ def check_num(num):
     num = list(num)
 
     if set(num).issubset(roman):
-        return "R"
+        return NumberType.ROMAN
 
     elif set(num).issubset(arabic):
-        return "A"
+        return NumberType.ARABIC
 
-    else:
-        return None
+    return None
 
 
 def to_roman(num):

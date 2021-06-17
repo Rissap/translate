@@ -8,6 +8,12 @@ from .scripts import (
     to_roman,
     save_history,
 )
+from .enums import NumberType
+
+numberProcessMapping = {
+    NumberType.ROMAN: to_arabic,
+    NumberType.ARABIC: to_roman,
+}
 
 
 class MainPage(TemplateView):
@@ -15,34 +21,21 @@ class MainPage(TemplateView):
 
     def get(self, request):
         history = models.History.objects.all()
-        args = {"history": history}
-
-        return render(request, self.template_name, context=args)
+        return render(request, self.template_name, {"history": history})
 
     def post(self, request):
-        # get raw string from html form and check it out
-        rawNumber = request.POST.get("numStr")
-        rawNumber = rawNumber.upper()
-        numType = check_num(rawNumber)
+        raw_number = request.POST.get("numStr")
+        raw_number = raw_number.upper()
+        num_type = check_num(raw_number)
 
-        # use one of converter foo or return an error message
-        if numType == None or rawNumber == "":
-            res = "Incorrect input! Try again)"
-        elif rawNumber == "0":
-            res = 0
-        elif numType == "R":
-            res = to_arabic(rawNumber)
-            save_history(rawNumber, res)
-        elif numType == "A":
-            res = to_roman(rawNumber)
-            save_history(rawNumber, res)
-        else:
-            res = "Unexpected error! Try again)"
+        if not num_type:
+            return render(
+                request, self.template_name, {'result': 'Unexpected input. Try again'}
+            )
 
-        # get the history of conversions
+        result = numberProcessMapping[num_type](raw_number)
+
         history = models.History.objects.all()
-
-        # create diction of arguments - result of conv. and list of history
-        args = {"result": res, "history": history}
+        args = {"result": result, "history": history}
 
         return render(request, self.template_name, context=args)
