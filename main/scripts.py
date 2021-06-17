@@ -54,10 +54,6 @@ def to_roman(num):
 
     numStr = ""
 
-    if num // 1000 > 3:
-        numStr += "M*" + str(num // 1000) + "+"
-        num -= (num // 1000) * 1000
-
     for x in range(len(keys)):
         amount = num // int(keys[x])
 
