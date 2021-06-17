@@ -6,3 +6,4 @@ COPY pyproject.toml /app
 RUN pip install poetry
 RUN poetry install
 COPY . /app
+RUN poetry run python manage.py migrate

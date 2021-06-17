@@ -9,4 +9,4 @@
 `poetry install`  
 `poetry run python manage.py runserver`
 
-Default url: ` 127.0.0.1:8000 `  
+Application url: ` 127.0.0.1:8000 `  
