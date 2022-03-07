@@ -2,17 +2,17 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 
 from . import models
-from .scripts import (
-    check_num,
-    to_arabic,
-    to_roman,
+from main.convertors import (
+    get_number_type,
+    convert_to_arabic,
+    convert_to_roman,
     save_history,
 )
-from .enums import NumberType
+from main.constants import NumberType
 
 numberProcessMapping = {
-    NumberType.ROMAN: to_arabic,
-    NumberType.ARABIC: to_roman,
+    NumberType.ROMAN: convert_to_arabic,
+    NumberType.ARABIC: convert_to_roman,
 }
 
 
@@ -26,7 +26,7 @@ class MainPage(TemplateView):
     def post(self, request):
         raw_number = request.POST.get("number")
         raw_number = raw_number.upper()
-        num_type = check_num(raw_number)
+        num_type = get_number_type(raw_number)
 
         if not num_type:
             return render(
@@ -38,4 +38,4 @@ class MainPage(TemplateView):
         history = models.History.objects.all()
         args = {"result": result, "history": history}
 
-        return render(request, self.template_name, context=args)
+        return render(request, self.template_name, args)
