@@ -1,22 +1,15 @@
 from django.db import models
-
-
-class Numbers(models.Model):
-    roman = models.CharField(max_length=5)
-    arabic = models.IntegerField()
-
-    class Meta:
-        ordering = ["-arabic"]
-
-    def __str__(self):
-        return "{0} {1}".format(self.roman, self.arabic)
+from django.conf import settings
 
 
 class History(models.Model):
-    from_num = models.CharField(max_length=128)
-    to_num = models.CharField(max_length=128)
-    time = models.TimeField()
+    convert_from = models.CharField(max_length=128)
+    convert_to = models.CharField(max_length=128)
+    created_at = models.DateTimeField(auto_now=True)
+
+    @property
+    def date(self):
+        return self.created_at.strftime(settings.HISTORY_DATE_FORMAT)
 
     class Meta:
-        ordering = ["-time"]
-        get_latest_by = ["-time"]
+        ordering = ["-created_at"]

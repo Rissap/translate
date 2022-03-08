@@ -41,13 +41,13 @@
 		<div class="history">
 			<h3 class="latest">Recently converted</h3>
             <div class="row justify-content-md-center">
-                {% for el in history %}
+                {% for item in history %}
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3 p-3">
                     <div class="border-bottom">
                         <p >
-                            <strong>{{el.from_num}}</strong> to <strong>{{el.to_num}}</strong>
+                            <strong>{{item.convert_from}}</strong> equals <strong>{{item.convert_to}}</strong>
                         </p>
-                        <small class="text-right">{{el.time}}</small>
+                        <small class="text-right">{{item.date}}</small>
                     </div>
                 </div>
                 {% endfor %}

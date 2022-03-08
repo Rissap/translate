@@ -1,29 +1,22 @@
-from difflib import get_close_matches
+import datetime as dt
+
+from main.constants import (
+    NumberType,
+    prioroty_combinations,
+    roman_arabic_equivalent,
+    roman_numbers,
+)
 from main.models import History
 
-import datetime as dt
-from main.constants import (
-    NumberType, 
-    roman_numbers, 
-    roman_arabic_equivalent,
-    prioroty_combinations,
-)
 
-
-def save_history(raw, num):
+def save_history(raw_number, converted_number):
     """
-    save latest 6 conversion
-    revrite the oldest one
+    Save convertation history
     """
-    if History.objects.all().count() > 6:
-        tmp = History.objects.latest()
-    else:
-        tmp = History()
-
-    tmp.from_num = raw
-    tmp.to_num = num
-    tmp.time = dt.datetime.now()
-    tmp.save()
+    History.objects.create(
+        convert_from=raw_number,
+        convert_to=converted_number,
+    )
 
 
 def get_number_type(raw_number: str):

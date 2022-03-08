@@ -1,4 +1,3 @@
-import django
 import os
 
 
@@ -88,3 +87,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+HISTORY_DATE_FORMAT = '%D'

@@ -7,9 +7,12 @@ authors = ["Daniil <d.istomin@we-are-talents.com>"]
 [tool.poetry.dependencies]
 python = "^3.8"
 Django = "^3.2.4"
+isort = "^5.10.1"
+prospector = {extras = ["with_bandit"], version = "^1.7.6"}
 
 [tool.poetry.dev-dependencies]
 ipdb = "^0.13.9"
+prospector = {extras = ["with-everything"], version = "^1.7.6"}
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

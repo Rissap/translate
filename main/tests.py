@@ -1,12 +1,12 @@
+from multiprocessing.sharedctypes import Value
+from tokenize import Number
 from django.test import TestCase
 
+from main.constants import NumberType, roman_arabic_equivalent
 from main.convertors import (
-    convert_to_roman,
     convert_to_arabic,
+    convert_to_roman,
     get_number_type,
-)
-from main.constants import (
-    NumberType, roman_numbers, roman_arabic_equivalent,
 )
 
 
@@ -19,7 +19,17 @@ class ConvertorsTestCase(TestCase):
             'MXV': 1015,
             'MLXIV': 1064,
             'MDIV': 1504,
-            'MCDIX': 1409,
+            'McDIX': 1409,
+        }
+        self.number_type_cases = {
+            '1': NumberType.ARABIC,
+            '999': NumberType.ARABIC,
+            '-1': ValueError,
+            'I': NumberType.ROMAN,
+            'IX': NumberType.ROMAN,
+            'MMCCLLXXIII': NumberType.ROMAN,
+            'MLOPQ': ValueError,
+            'random': ValueError,
         }
 
     def test_single_number_convert(self):
@@ -36,3 +46,12 @@ class ConvertorsTestCase(TestCase):
             converted_roman = convert_to_roman(arabic)
             self.assertEqual(arabic, converted_arabic)
             self.assertEqual(roman.upper(), converted_roman)
+
+    def test_number_type(self):
+        for number, expected_value in self.number_type_cases.items():
+            with self.subTest(f'{number=} {expected_value=}'):
+                if type(expected_value) == Exception:
+                    with self.assertRaises(ValueError):
+                        get_number_type(number)
+                else:
+                    self.assertEqual(get_number_type(number), expected_value)
