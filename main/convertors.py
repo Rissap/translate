@@ -27,6 +27,8 @@ def get_number_type(raw_number: str):
         raise ValueError('Number can\'t be empty.')
 
     if raw_number.isdigit():
+        if int(raw_number) < 1:
+            raise ValueError('Can\'t convert numbers lower that 1.')
         return NumberType.ARABIC
 
     if set(raw_number).issubset(set(roman_numbers)):
