@@ -16,7 +16,7 @@
 	<header>
 		<nav class="navbar navbar-light bg-light">
 			<div class="container">
-				<span class="navbar-brand mb-0 h1">Number conventer</span>
+				<span class="navbar-brand mb-0 h1">Number convertor</span>
 			</div>
 		</nav>
 	</header>
@@ -29,10 +29,11 @@
                 <div class="container text-center">
                     <button type="submit" class="btn btn-primary mt-2">Convert</button>
                 </div>
+            </form>
 		</div>
         {% if result %}
 		<div>
-            <h3 class="text-center my-5">Result: {{result}}</h3>
+            <h3 class="text-center my-5">{{result}}</h3>
 		</div>
         {% endif %}
 		
@@ -53,4 +54,5 @@
                 {% endfor %}
             </div>
 		</div>
+    </div>
 {% endblock %}
