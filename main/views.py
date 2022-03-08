@@ -21,18 +21,15 @@ class MainPage(TemplateView):
 
     def post(self, request):
         raw_number = request.POST.get("number")
-        error_message = None
+
         try:
             number_type = get_number_type(raw_number)
-        except ValueError:
-            error_message = 'Unexpected number. Try again'
-
-        if not number_type or error_message:
+        except ValueError as error:
             return render(
                 request, 
                 self.template_name, 
                 {
-                    'result': error_message,
+                    'result': error,
                     'history': History.objects.all()
                 }, 
             )

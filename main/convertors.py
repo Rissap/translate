@@ -25,6 +25,9 @@ def get_number_type(raw_number: str):
     Raise value error if number is not roman nor arabic
     """
 
+    if not raw_number:
+        raise ValueError('Number can\'t be empty.')
+
     if raw_number.isdigit():
         return NumberType.ARABIC
 
