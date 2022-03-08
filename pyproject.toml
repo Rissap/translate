@@ -9,6 +9,7 @@ python = "^3.8"
 Django = "^3.2.4"
 isort = "^5.10.1"
 prospector = {extras = ["with_bandit"], version = "^1.7.6"}
+psycopg2-binary = "^2.9.3"
 
 [tool.poetry.dev-dependencies]
 ipdb = "^0.13.9"
