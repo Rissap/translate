@@ -44,9 +44,9 @@
                 {% for item in history %}
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3 p-3">
                     <div class="border-bottom">
-                        <p >
-                            <strong>{{item.convert_from}}</strong> equals <strong>{{item.convert_to}}</strong>
-                        </p>
+                        <div class="col-5 font-weight-bold">{{item.convert_from}}</div>
+                        <div class="col-2">equals</div>
+                        <div class="col-5">{{item.convert_to}}</div>
                         <small class="text-right">{{item.date}}</small>
                     </div>
                 </div>

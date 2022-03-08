@@ -19,7 +19,7 @@ class MainPage(TemplateView):
         return render(request, self.template_name, {"history": history})
 
     def post(self, request):
-        raw_number = request.POST.get("number")
+        raw_number = request.POST.get("number").upper()
 
         try:
             number_type = get_number_type(raw_number)
