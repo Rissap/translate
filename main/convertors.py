@@ -1,7 +1,13 @@
+from difflib import get_close_matches
 from main.models import History
 
 import datetime as dt
-from main.constants import NumberType, roman_numbers, roman_arabic_equivalent
+from main.constants import (
+    NumberType, 
+    roman_numbers, 
+    roman_arabic_equivalent,
+    prioroty_combinations,
+)
 
 
 def save_history(raw, num):
@@ -35,26 +41,23 @@ def get_number_type(raw_number: str):
     raise ValueError('Number is not roman nor arabic.')
 
 
+def get_closest_roman(number):
+    for roman in roman_numbers:
+        if roman_arabic_equivalent[roman] <= number:
+            return roman, roman_arabic_equivalent[roman]
+
+
 def convert_to_roman(number: int) -> str:
     """
     Convert integer from arabic to roman
     """
     roman_number = ""
 
-    for index, numeral in enumerate(roman_numbers):
-        numeral_amount = number // roman_arabic_equivalent[numeral]
-
-        if numeral_amount > 3 and numeral != 'M':
-            previous_numeral = roman_numbers[index - 1]
-            roman_number += numeral + previous_numeral
-            number -= (
-                roman_arabic_equivalent[numeral] 
-                + roman_arabic_equivalent[previous_numeral]
-            )
-
-        else:
-            roman_number += numeral * numeral_amount
-            number -= roman_arabic_equivalent[numeral] * numeral_amount
+    while number > 0:
+        roman, value = get_closest_roman(number)
+        roman_amount = number // value
+        roman_number += roman * roman_amount
+        number -= value * roman_amount
 
     return roman_number
 
@@ -64,17 +67,13 @@ def convert_to_arabic(number: str) -> int:
     Convert roman number to arabic
     """
 
-    num = list(number.upper())
-    calc = []
-    res = 0
+    arabic = 0
+    number = number.upper()
 
-    # convert roman to arabic
-    for x in num:
-        calc.append(int(roman_arabic_equivalent[x]))
+    for numerals in [prioroty_combinations, roman_numbers]:
+        for numeral in numerals:
+            numeral_amount = len(number.split(numeral)) - 1
+            arabic += roman_arabic_equivalent[numeral] * numeral_amount
+            number = ''.join(number.split(numeral))
 
-    # calculate with the rules of roman number position
-    for x in range(len(calc) - 1):
-        if calc[x] < calc[x + 1]:
-            calc[x] = calc[x] * (-1)
-
-    return sum(calc)
+    return arabic

@@ -30,7 +30,7 @@ class ConvertorsTestCase(TestCase):
                 self.assertEqual(arabic, converted_arabic)
                 self.assertEqual(roman, converted_roman)
 
-    def test_roman_complex_numbers_convert(self):
+    def test_complex_numbers_convert(self):
         for roman, arabic in self.numbers_cases.items():
             converted_arabic = convert_to_arabic(roman)
             converted_roman = convert_to_roman(arabic)

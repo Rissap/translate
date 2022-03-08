@@ -10,11 +10,6 @@ from main.convertors import (
 )
 from main.constants import NumberType
 
-numberProcessMapping = {
-    NumberType.ROMAN: convert_to_arabic,
-    NumberType.ARABIC: convert_to_roman,
-}
-
 
 class MainPage(TemplateView):
     template_name = "main.html"
@@ -33,7 +28,10 @@ class MainPage(TemplateView):
                 request, self.template_name, {'result': 'Unexpected input. Try again'}
             )
 
-        result = numberProcessMapping[num_type](raw_number)
+        if num_type == NumberType.ROMAN:
+            result = convert_to_arabic(raw_number)
+        else:
+            result = convert_to_roman(int(raw_number))
 
         history = models.History.objects.all()
         args = {"result": result, "history": history}
