@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
@@ -15,8 +16,11 @@ class MainPage(TemplateView):
     template_name = "main.html"
 
     def get(self, request, *args, **kwargs):
-        history = History.objects.all()
-        return render(request, self.template_name, {"history": history})
+        return render(
+            request,
+            self.template_name,
+            {"history": History.latest.all()}
+        )
 
     def post(self, request):
         raw_number = request.POST.get("number").upper()
@@ -29,7 +33,7 @@ class MainPage(TemplateView):
                 self.template_name,
                 {
                     'result': error,
-                    'history': History.objects.all()
+                    'history': History.latest.all()
                 },
             )
 
@@ -39,6 +43,11 @@ class MainPage(TemplateView):
             result = convert_to_roman(int(raw_number))
 
         save_history(raw_number, result)
-
-        args = {"result": result, "history": History.objects.all()}
-        return render(request, self.template_name, args)
+        return render(
+            request,
+            self.template_name,
+            {
+                "result": result,
+                "history": History.latest.all()
+            },
+        )
