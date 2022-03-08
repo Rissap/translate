@@ -1,4 +1,3 @@
-from distutils.log import error
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
@@ -15,7 +14,7 @@ from main.models import History
 class MainPage(TemplateView):
     template_name = "main.html"
 
-    def get(self, request):
+    def get(self, request, *args, **kwargs):
         history = History.objects.all()
         return render(request, self.template_name, {"history": history})
 
@@ -26,12 +25,12 @@ class MainPage(TemplateView):
             number_type = get_number_type(raw_number)
         except ValueError as error:
             return render(
-                request, 
-                self.template_name, 
+                request,
+                self.template_name,
                 {
                     'result': error,
                     'history': History.objects.all()
-                }, 
+                },
             )
 
         if number_type == NumberType.ROMAN:

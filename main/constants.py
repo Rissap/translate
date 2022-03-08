@@ -5,8 +5,9 @@ class NumberType(Enum):
     ROMAN = 'ROMAN'
     ARABIC = 'ARABIC'
 
+
 roman_arabic_equivalent = {
-    'M': 1000,       
+    'M': 1000,
     'CM': 900,
     'D': 500,
     'CD': 400,

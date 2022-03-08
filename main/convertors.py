@@ -1,5 +1,3 @@
-import datetime as dt
-
 from main.constants import (
     NumberType,
     prioroty_combinations,
@@ -41,6 +39,8 @@ def get_closest_roman(number):
     for roman in roman_numbers:
         if roman_arabic_equivalent[roman] <= number:
             return roman, roman_arabic_equivalent[roman]
+    smallest_roman = roman_numbers[-1]
+    return smallest_roman, roman_arabic_equivalent[smallest_roman]
 
 
 def convert_to_roman(number: int) -> str:

@@ -1,7 +1,8 @@
 strictness: veryhigh
 
-doc-warning: true
-test-warning: false
+ignore-paths:
+  - settings.py
+  - manage.py
 
 uses:
   - django
@@ -15,14 +16,12 @@ dodgy:
 mccabe:
   run: true
 
-pep8:
+pycodestyle:
   run: true
-
-pep257:
-  run: false
 
 pyflakes:
   run: true
 
 pylint:
   run: true
+  django-settings-module: server.settings
