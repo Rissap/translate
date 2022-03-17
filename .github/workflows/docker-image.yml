@@ -56,10 +56,12 @@ jobs:
   deploy:
     needs: test
     runs-on: ubuntu-20.04
-    enviroment: secrets
 
     steps:
-      - name: Login to docker registry
-        run: docker login --username=_ --password=$HEROKU_AUTH_TOKEN registry.heroku.com
-      - name: Push containers to the registry
-        run: heroku container:push web db --recursive
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "roman-arabic-converted"
+          heroku_email: "riisa.toro@gmail.com"
+          usedocker: true
