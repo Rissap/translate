@@ -12,6 +12,7 @@ from main.convertors import (
 
 class ConvertorsTestCase(TestCase):
     def setUp(self):
+        error = ValueError()
         self.numbers_cases = {
             'XII': 12,
             'xvi': 16,
@@ -24,12 +25,12 @@ class ConvertorsTestCase(TestCase):
         self.number_type_cases = {
             '1': NumberType.ARABIC,
             '999': NumberType.ARABIC,
-            '-1': ValueError,
+            '-1': error,
             'I': NumberType.ROMAN,
             'IX': NumberType.ROMAN,
             'MMCCLLXXIII': NumberType.ROMAN,
-            'MLOPQ': ValueError,
-            'random': ValueError,
+            'MLOPQ': error,
+            'random': error,
         }
 
     def test_single_number_convert(self):
@@ -50,7 +51,7 @@ class ConvertorsTestCase(TestCase):
     def test_number_type(self):
         for number, expected_value in self.number_type_cases.items():
             with self.subTest(f'{number=} {expected_value=}'):
-                if type(expected_value) == Exception:
+                if type(expected_value) == ValueError:
                     with self.assertRaises(ValueError):
                         get_number_type(number)
                 else:
