@@ -52,3 +52,14 @@ jobs:
     - name: Run Tests
       run: |
         poetry run python manage.py test
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-20.04
+    enviroment: secrets
+
+    steps:
+      - name: Login to docker registry
+        run: docker login --username=_ --password=$HEROKU_AUTH_TOKEN registry.heroku.com
+      - name: Push containers to the registry
+        run: heroku container:push web db --recursive
