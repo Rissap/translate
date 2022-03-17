@@ -59,9 +59,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - name: SECRET
+        run: echo ${{secrets.HEROKU_API_KEY}}
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "roman-arabic-converted"
           heroku_email: "riisa.toro@gmail.com"
           usedocker: true
+
