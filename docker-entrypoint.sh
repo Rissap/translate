@@ -1,5 +1,7 @@
 #!/bin/bash
 
+poetry install
+
 # Apply database migrations
 echo "Apply database migrations"
 poetry run python manage.py migrate
