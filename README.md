@@ -12,8 +12,8 @@
 * Run docker build:  
   * `docker-compose build`
 * In addition - install poetry dependencies:
-    * pip install poetry
-    * poetry install
+    * `pip install poetry`
+    * `poetry install`
 
 
 ## Runing the application
